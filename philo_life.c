@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/01 20:53:47 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:33:40 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*thinking(void *philo);
 
 void	*live_alone(void *philo)
 {
-	t_philo *ph;
+	t_philo	*ph;
 
 	ph = (t_philo *)philo;
 	printf("%d has take a fork\n", ph->name);
@@ -29,7 +29,8 @@ void	*live_alone(void *philo)
 
 void	*eating(void *philo)
 {
-	t_philo *ph;
+	t_philo	*ph;
+	long	moment;
 
 	ph = (t_philo *)philo;
 	if (ph->data->num_philo_must_eat == ph->satisfied)
@@ -37,8 +38,9 @@ void	*eating(void *philo)
 	ph->satisfied++;
 	pthread_mutex_lock(ph->left_fork);
 	pthread_mutex_lock(ph->right_fork);
-	printf("%d has take a fork\n", ph->name);
-	printf("%d is eating\n", ph->name);
+	moment = calculate_philo_moment(philo);
+	printf("%ld %d has take a fork\n", moment, ph->name);
+	printf("%ld %d is eating\n", moment, ph->name);
 	usleep(ph->data->time_to_eat * 1000);
 	pthread_mutex_unlock(ph->left_fork);
 	pthread_mutex_unlock(ph->right_fork);
@@ -47,25 +49,29 @@ void	*eating(void *philo)
 
 void	*sleeping(void *philo)
 {
-	t_philo *ph;
+	t_philo	*ph;
 
 	ph = (t_philo *)philo;
-	printf("%d is sleeping\n", ph->name);
+	printf("%ld %d is sleeping\n", calculate_philo_moment(philo), ph->name);
 	usleep(ph->data->time_to_sleep * 1000);
 	return (thinking(philo));
 }
 
 void	*thinking(void *philo)
 {
-	printf("%d is thinking\n", ((t_philo *)philo)->name);
+	long	moment;
+
+	moment = calculate_philo_moment(philo);
+	printf("%ld %d is thinking\n", moment, ((t_philo *)philo)->name);
 	return (eating(philo));
 }
 
 int	philo_life(t_data *data, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
+	data->life_start_time = get_time_now();
 	if (data->num_philo == 1)
 	{
 		pthread_create(&philo->thread, NULL, &live_alone, &philo);
@@ -75,10 +81,7 @@ int	philo_life(t_data *data, t_philo *philo)
 	{
 		while (i < data->num_philo)
 		{
-			if (philo[i].name % 2)
-				pthread_create(&philo[i].thread, NULL, &eating, &philo[i]);
-			else
-				pthread_create(&philo[i].thread, NULL, &sleeping, &philo[i]);
+			pthread_create(&philo[i].thread, NULL, &eating, &philo[i]);
 			i++;
 		}
 		while (i < data->num_philo)

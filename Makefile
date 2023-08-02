@@ -1,6 +1,6 @@
 NAME=philosophers
 
-SOURCES=main.c utils.c error.c philo_life.c
+SOURCES=main.c utils.c error.c philo_life.c timer.c
 
 OBJS=$(SOURCES:.c=.o)
 

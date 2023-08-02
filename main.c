@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/01 14:32:13 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:28:12 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_args(t_data *data, int argc, char *argv[])
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	data->did_someone_die = 0;
+	data->life_start_time = 0;
 	data->num_philo_must_eat = -1;
 	if (argc == 6)
 		data->num_philo_must_eat = ft_atoi(argv[5]);
@@ -26,7 +27,7 @@ void	init_args(t_data *data, int argc, char *argv[])
 
 void	init_philo(t_data *data, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_philo)
@@ -44,20 +45,21 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].right_fork = philo[i - 1].left_fork;
 		i--;
 	}
-	
 }
 
 int	main(int argc, char *argv[])
 {
-	t_data data;
-	t_philo *philo;
+	t_data	data;
+	t_philo	*philo;
+	int		i;
+	int		result;
 
-	int i = 0;
+	i = 0;
 	check_args(argc, argv);
 	init_args(&data, argc, argv);
 	philo = malloc(sizeof(t_philo) * data.num_philo);
 	init_philo(&data, philo);
-	int result = philo_life(&data, philo);
+	result = philo_life(&data, philo);
 	while (data.did_someone_die == 0)
 	{
 	}
@@ -67,7 +69,5 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	free(philo);
-	printf("\nsaiu aqui!\n");
-	
 	return (result);
 }
