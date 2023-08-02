@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/01 14:42:10 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:53:47 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 void	*sleeping(void *philo);
 void	*thinking(void *philo);
 
-void	*live_alone()
+void	*live_alone(void *philo)
 {
-	printf("test\n");
+	t_philo *ph;
+
+	ph = (t_philo *)philo;
+	printf("%d has take a fork\n", ph->name);
+	printf("%d is eating\n", ph->name);
+	printf("%d is sleeping\n", ph->name);
+	printf("%d is thinking\n", ph->name);
 	return (0);
 }
 
@@ -60,18 +66,25 @@ int	philo_life(t_data *data, t_philo *philo)
 	int i;
 
 	i = 0;
-	while (i < data->num_philo)
+	if (data->num_philo == 1)
 	{
-		if (philo[i].name % 2)
-			pthread_create(&philo[i].thread, NULL, &eating, &philo[i]);
-		else
-			pthread_create(&philo[i].thread, NULL, &sleeping, &philo[i]);
-		i++;
+		pthread_create(&philo->thread, NULL, &live_alone, &philo);
+		pthread_join(philo->thread, NULL);
 	}
-	while (i < data->num_philo)
+	else
 	{
-		printf("join...\n");
-		pthread_join(philo[i].thread, NULL);
+		while (i < data->num_philo)
+		{
+			if (philo[i].name % 2)
+				pthread_create(&philo[i].thread, NULL, &eating, &philo[i]);
+			else
+				pthread_create(&philo[i].thread, NULL, &sleeping, &philo[i]);
+			i++;
+		}
+		while (i < data->num_philo)
+		{
+			pthread_join(philo[i].thread, NULL);
+		}
 	}
 	return (i);
 }
