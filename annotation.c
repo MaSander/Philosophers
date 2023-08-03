@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 22:46:41 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 02:20:09 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:48:56 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	write_philo_action(t_philo *philo, int action)
 {
 	long	moment;
 
-	pthread_mutex_lock(philo->data->pancil);
+	pthread_mutex_lock(&philo->data->pancil);
 	if (philo->data->did_someone_die == 1)
 	{
-		pthread_mutex_unlock(philo->data->pancil);
+		pthread_mutex_unlock(&philo->data->pancil);
 		return ;
 	}
 	moment = calculate_current_time(philo);
@@ -33,5 +33,5 @@ void	write_philo_action(t_philo *philo, int action)
 		printf("%ld %d is thinking\n", moment, philo->name);
 	else
 		printf("%ld %d died\n", moment, philo->name);
-	pthread_mutex_unlock(philo->data->pancil);
+	pthread_mutex_unlock(&philo->data->pancil);
 }

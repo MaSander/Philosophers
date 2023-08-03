@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 02:48:36 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:48:17 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_args(t_data *data, int argc, char *argv[])
 	data->did_someone_die = 0;
 	data->life_start_time = 0;
 	data->num_philo_must_eat = -1;
-	data->pancil = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(&data->pancil, NULL);
 	if (argc == 6)
 		data->num_philo_must_eat = ft_atoi(argv[5]);
 }
@@ -37,7 +37,7 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].satisfied = 0;
 		philo[i].data = data;
 		philo[i].last_food = 0;
-		philo[i].left_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(&philo[i].left_fork, NULL);
 		i++;
 	}
 	i--;
@@ -64,9 +64,10 @@ int	main(int argc, char *argv[])
 	result = philo_life(&data, philo);
 	while (i < data.num_philo)
 	{
-		free(philo[i].left_fork);
+		pthread_mutex_destroy(&philo[i].left_fork);
 		i++;
 	}
+	pthread_mutex_destroy(&data.pancil);
 	free(philo);
 	return (result);
 }

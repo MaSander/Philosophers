@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 11:51:47 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:47:29 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <time.h>
+# include <string.h>
 
 # define TAKE_A_FORK 1
 # define EATING 2
@@ -34,7 +35,7 @@ typedef struct s_data {
 	int				num_philo_must_eat;
 	int				did_someone_die;
 	long			life_start_time;
-	pthread_mutex_t	*pancil;
+	pthread_mutex_t	pancil;
 }	t_data;
 
 typedef struct s_philo {
@@ -43,8 +44,8 @@ typedef struct s_philo {
 	long			last_food;
 	t_data			*data;
 	pthread_t		thread;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
 
 }	t_philo;
 
@@ -56,10 +57,12 @@ long	calculate_current_time(t_philo *philo);
 
 void	write_philo_action(t_philo *philo, int action);
 
-int		ft_atoi(const char *str);
-
 void	check_args(int argv, char *argc[]);
 
 void	exit_error(int exit_code, char *message_error);
+
+void	*ft_calloc(size_t num, size_t size);
+
+int		ft_atoi(const char *str);
 
 #endif
