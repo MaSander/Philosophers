@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 11:42:07 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:51:04 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	eating(t_philo *philo)
 	write_philo_action(philo, EATING);
 	philo->satisfied++;
 	philo->last_food = get_time_now();
-	usleep(philo->data->time_to_eat * 1000);
+	ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
@@ -28,7 +28,7 @@ void	eating(t_philo *philo)
 void	sleeping(t_philo *philo)
 {
 	write_philo_action(philo, SLEEPING);
-	usleep(philo->data->time_to_sleep * 1000);
+	ft_sleep(philo->data->time_to_sleep);
 }
 
 void	thinking(t_philo *philo)
@@ -42,10 +42,11 @@ void	*life(void *philo)
 
 	ph = (t_philo *)philo;
 	if (!(ph->name % 2))
-		usleep(1000);
+		ft_sleep(1000);
 	while (ph->data->num_philo_must_eat != ph->satisfied)
 	{
-		if ((get_time_now() - ph->last_food) > ph->data->time_to_die && ph->last_food != 0)
+		if ((get_time_now() - ph->last_food) > ph->data->time_to_die
+			&& ph->last_food != 0)
 		{
 			write_philo_action(philo, DIED);
 			ph->data->did_someone_die = 1;
@@ -68,7 +69,7 @@ int	philo_life(t_data *data, t_philo *philo)
 	{
 		write_philo_action(philo, TAKE_A_FORK);
 		write_philo_action(philo, EATING);
-		usleep(philo->data->time_to_eat * 1000);
+		ft_sleep(philo->data->time_to_eat);
 		sleeping(philo);
 		thinking(philo);
 		return (0);
