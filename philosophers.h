@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/02 23:09:40 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:06:09 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_philo {
 int		philo_life(t_data *data, t_philo *philo);
 
 long	get_time_now(void);
-long	calculate_philo_moment(void *philo);
+long	calculate_current_time(t_philo *philo);
 
 void	write_philo_action(t_philo *philo, int action);
 

@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/02 23:09:13 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:08:52 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,15 @@ void	*live_alone(void *philo)
 	write_philo_action(ph, EATING);
 	write_philo_action(ph, SLEEPING);
 	write_philo_action(ph, THINKING);
-	// printf("%d has take a fork\n", ph->name);
-	// printf("%d is eating\n", ph->name);
-	// printf("%d is sleeping\n", ph->name);
-	// printf("%d is thinking\n", ph->name);
 	return (0);
 }
 
 void	eating(t_philo *philo)
 {
-	long	moment;
-
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(philo->right_fork);
-	moment = calculate_philo_moment(philo);
-	printf("%ld %d has take a fork\n", moment, philo->name);
-	printf("%ld %d is eating\n", moment, philo->name);
+	write_philo_action(philo, TAKE_A_FORK);
+	write_philo_action(philo, EATING);
 	philo->satisfied++;
 	usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->left_fork);
@@ -45,16 +38,13 @@ void	eating(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-	printf("%ld %d is sleeping\n", calculate_philo_moment(philo), philo->name);
+	write_philo_action(philo, SLEEPING);
 	usleep(philo->data->time_to_sleep * 1000);
 }
 
 void	thinking(t_philo *philo)
 {
-	long	moment;
-
-	moment = calculate_philo_moment(philo);
-	printf("%ld %d is thinking\n", moment, philo->name);
+	write_philo_action(philo, THINKING);
 }
 
 void	*life(void *philo)

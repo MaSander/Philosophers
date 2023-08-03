@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/02 22:43:16 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:07:52 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_args(t_data *data, int argc, char *argv[])
 	data->did_someone_die = 0;
 	data->life_start_time = 0;
 	data->num_philo_must_eat = -1;
+	data->pancil = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (argc == 6)
 		data->num_philo_must_eat = ft_atoi(argv[5]);
 }
