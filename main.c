@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/02 15:28:12 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/02 22:43:16 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,22 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv);
 	init_args(&data, argc, argv);
 	philo = malloc(sizeof(t_philo) * data.num_philo);
+
+	/* TODO
+		criar funçao de print
+			função lockada por mutex unico na data
+			printa a ação do philo se todos vivos
+			desbloqueia a função
+		criar uma função que monitora
+			verifcar se todos estão vivos
+			caso um morra finalize o jantar
+		
+		criar uma função para atualizar a hora do ultimo que comeu
+
+	*/
+
 	init_philo(&data, philo);
 	result = philo_life(&data, philo);
-	while (data.did_someone_die == 0)
-	{
-	}
 	while (i < data.num_philo)
 	{
 		free(philo[i].left_fork);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_life.c                                       :+:      :+:    :+:   */
+/*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/02 19:39:34 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:09:13 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ void	*live_alone(void *philo)
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
-	printf("%d has take a fork\n", ph->name);
-	printf("%d is eating\n", ph->name);
-	printf("%d is sleeping\n", ph->name);
-	printf("%d is thinking\n", ph->name);
+	write_philo_action(ph, TAKE_A_FORK);
+	write_philo_action(ph, EATING);
+	write_philo_action(ph, SLEEPING);
+	write_philo_action(ph, THINKING);
+	// printf("%d has take a fork\n", ph->name);
+	// printf("%d is eating\n", ph->name);
+	// printf("%d is sleeping\n", ph->name);
+	// printf("%d is thinking\n", ph->name);
 	return (0);
 }
 
@@ -28,14 +32,12 @@ void	eating(t_philo *philo)
 {
 	long	moment;
 
-	if (philo->data->num_philo_must_eat == philo->satisfied)
-		return ;
-	philo->satisfied++;
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(philo->right_fork);
 	moment = calculate_philo_moment(philo);
 	printf("%ld %d has take a fork\n", moment, philo->name);
 	printf("%ld %d is eating\n", moment, philo->name);
+	philo->satisfied++;
 	usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -62,7 +64,7 @@ void	*life(void *philo)
 	ph = (t_philo *)philo;
 	if (!(ph->name % 2))
 		usleep(1000);
-	while (1 == 1)
+	while (ph->data->num_philo_must_eat != ph->satisfied)
 	{
 		eating(ph);
 		sleeping(ph);
