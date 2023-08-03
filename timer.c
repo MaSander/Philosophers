@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 00:52:11 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 02:06:09 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:13:04 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ long	get_time_now(void)
 
 long	calculate_current_time(t_philo *philo)
 {
-	return (get_time_now() - ((t_philo *)philo)->data->life_start_time);
+	return (get_time_now() - philo->data->life_start_time);
 }

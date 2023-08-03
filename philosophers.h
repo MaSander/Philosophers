@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 02:06:09 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:11:41 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ typedef struct s_data {
 
 typedef struct s_philo {
 	int				name;
+	int				satisfied;
+	long			last_food;
 	t_data			*data;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	int				satisfied;
 
 }	t_philo;
 

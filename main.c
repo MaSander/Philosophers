@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 02:07:52 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:48:36 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].name = (i + 1);
 		philo[i].satisfied = 0;
 		philo[i].data = data;
+		philo[i].last_food = 0;
 		philo[i].left_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		i++;
 	}
@@ -59,20 +60,6 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv);
 	init_args(&data, argc, argv);
 	philo = malloc(sizeof(t_philo) * data.num_philo);
-
-	/* TODO
-		criar funçao de print
-			função lockada por mutex unico na data
-			printa a ação do philo se todos vivos
-			desbloqueia a função
-		criar uma função que monitora
-			verifcar se todos estão vivos
-			caso um morra finalize o jantar
-		
-		criar uma função para atualizar a hora do ultimo que comeu
-
-	*/
-
 	init_philo(&data, philo);
 	result = philo_life(&data, philo);
 	while (i < data.num_philo)
