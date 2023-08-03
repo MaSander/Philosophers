@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 17:47:29 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:09:49 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_philo {
 
 }	t_philo;
 
-int		philo_life(t_data *data, t_philo *philo);
+void	*life(void *philo);
 
 long	get_time_now(void);
 void	ft_sleep(int miliseconds);

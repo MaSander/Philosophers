@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 17:48:17 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:11:08 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,32 @@ void	init_philo(t_data *data, t_philo *philo)
 	}
 }
 
+int	give_life(t_data *data, t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	data->life_start_time = get_time_now();
+	while (++i < data->num_philo)
+		pthread_create(&philo[i].thread, NULL, &life, &philo[i]);
+	i = -1;
+	while (++i < data->num_philo)
+		pthread_join(philo[i].thread, NULL);
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
 	t_philo	*philo;
 	int		i;
-	int		result;
 
 	i = 0;
 	check_args(argc, argv);
 	init_args(&data, argc, argv);
 	philo = malloc(sizeof(t_philo) * data.num_philo);
 	init_philo(&data, philo);
-	result = philo_life(&data, philo);
+	give_life(&data, philo);
 	while (i < data.num_philo)
 	{
 		pthread_mutex_destroy(&philo[i].left_fork);
@@ -69,5 +82,5 @@ int	main(int argc, char *argv[])
 	}
 	pthread_mutex_destroy(&data.pancil);
 	free(philo);
-	return (result);
+	return (0);
 }

@@ -6,11 +6,23 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 17:54:56 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:09:32 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static int	philo_is_alive(t_philo *philo)
+{
+	if ((get_time_now() - philo->last_food) > philo->data->time_to_die
+		&& philo->last_food != 0)
+	{
+		write_philo_action(philo, DIED);
+		philo->data->did_someone_die = 1;
+		return (0);
+	}
+	return (1);
+}
 
 void	eating(t_philo *philo)
 {
@@ -47,30 +59,15 @@ void	*life(void *philo)
 		usleep(1000);
 	while (ph->data->num_philo_must_eat != ph->satisfied)
 	{
-		if ((get_time_now() - ph->last_food) > ph->data->time_to_die
-			&& ph->last_food != 0)
-		{
-			write_philo_action(philo, DIED);
-			ph->data->did_someone_die = 1;
+		if (!philo_is_alive(ph))
 			return (0);
-		}
 		eating(ph);
+		if (!philo_is_alive(ph))
+			return (0);
 		sleeping(ph);
+		if (!philo_is_alive(ph))
+			return (0);
 		thinking(ph);
 	}
-	return (0);
-}
-
-int	philo_life(t_data *data, t_philo *philo)
-{
-	int	i;
-
-	i = -1;
-	data->life_start_time = get_time_now();
-	while (++i < data->num_philo)
-		pthread_create(&philo[i].thread, NULL, &life, &philo[i]);
-	i = -1;
-	while (++i < data->num_philo)
-		pthread_join(philo[i].thread, NULL);
 	return (0);
 }
