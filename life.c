@@ -6,23 +6,11 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 02:50:39 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:42:07 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	*live_alone(void *philo)
-{
-	t_philo	*ph;
-
-	ph = (t_philo *)philo;
-	write_philo_action(ph, TAKE_A_FORK);
-	write_philo_action(ph, EATING);
-	write_philo_action(ph, SLEEPING);
-	write_philo_action(ph, THINKING);
-	return (0);
-}
 
 void	eating(t_philo *philo)
 {
@@ -78,8 +66,12 @@ int	philo_life(t_data *data, t_philo *philo)
 	data->life_start_time = get_time_now();
 	if (data->num_philo == 1)
 	{
-		pthread_create(&philo->thread, NULL, &live_alone, &philo);
-		pthread_join(philo->thread, NULL);
+		write_philo_action(philo, TAKE_A_FORK);
+		write_philo_action(philo, EATING);
+		usleep(philo->data->time_to_eat * 1000);
+		sleeping(philo);
+		thinking(philo);
+		return (0);
 	}
 	else
 	{
@@ -89,5 +81,5 @@ int	philo_life(t_data *data, t_philo *philo)
 		while (++i < data->num_philo)
 			pthread_join(philo[i].thread, NULL);
 	}
-	return (i);
+	return (0);
 }
