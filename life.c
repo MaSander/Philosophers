@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 20:58:13 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:53:23 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	eating(t_philo *philo)
 	write_philo_action(philo, TAKE_A_FORK);
 	write_philo_action(philo, TAKE_A_FORK);
 	write_philo_action(philo, EATING);
-	philo->satisfied++;
 	philo->last_food = get_time_now();
+	philo->satisfied++;
 	ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
@@ -43,7 +43,7 @@ void	*life(void *philo)
 
 	ph = (t_philo *)philo;
 	if (!(ph->name % 2))
-		usleep(1000);
+		ft_sleep(1);
 	ph->last_food = ph->data->life_start_time;
 	while (ph->data->did_someone_die != 1)
 	{

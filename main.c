@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 20:58:20 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:23:18 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,6 @@ void	init_philo(t_data *data, t_philo *philo)
 	}
 }
 
-int monitoring(t_philo *philos)
-{
-	int i;
-
-	i = 0;
-	while(1 == 1)
-	{
-		ft_sleep(1);
-		i = 0;
-		while (i < philos->data->num_philo)
-		{
-			if ((get_time_now() - philos[i].last_food) > philos[i].data->time_to_die
-				&& philos[i].last_food != 0)
-			{
-				write_philo_action(&philos[i], DIED);
-				philos[i]. data->did_someone_die = 1;
-				return (0);
-			}
-			i++;
-		}
-		
-	}
-}
-
 int	give_life(t_data *data, t_philo *philos)
 {
 	int	i;
@@ -83,7 +59,7 @@ int	give_life(t_data *data, t_philo *philos)
 	while (++i < data->num_philo)
 		pthread_create(&philos[i].thread, NULL, &life, &philos[i]);
 	i = -1;
-	monitoring(philos);
+	monitoring(data, philos);
 	while (++i < data->num_philo)
 		pthread_join(philos[i].thread, NULL);
 	return (0);
