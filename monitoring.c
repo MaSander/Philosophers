@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:24:02 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 21:53:27 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/04 02:12:34 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	philo_is_alive(t_philo *philo)
 {
 	long	time_now;
 	long	last_food;
-	// long	time_to_eat;
-	
+
 	time_now = get_time_now();
 	last_food = philo->last_food;
 	if ((time_now - last_food) > philo->data->time_to_die)
