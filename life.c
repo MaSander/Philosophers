@@ -6,11 +6,20 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 21:53:23 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/04 02:25:07 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	eating_alone(t_philo *philo)
+{
+	write_philo_action(philo, TAKE_A_FORK);
+	ft_sleep(philo->data->time_to_eat);
+	while (philo->data->did_someone_die != 1)
+	{
+	}
+}
 
 void	eating(t_philo *philo)
 {
@@ -45,13 +54,18 @@ void	*life(void *philo)
 	if (!(ph->name % 2))
 		ft_sleep(1);
 	ph->last_food = ph->data->life_start_time;
-	while (ph->data->did_someone_die != 1)
+	if (ph->data->num_philo == 1)
+		eating_alone(ph);
+	else
 	{
-		if (ph->data->num_philo_must_eat == ph->satisfied)
-			return (0);
-		eating(ph);
-		sleeping(ph);
-		thinking(ph);
+		while (ph->data->did_someone_die != 1)
+		{
+			if (ph->data->num_philo_must_eat == ph->satisfied)
+				return (0);
+			eating(ph);
+			sleeping(ph);
+			thinking(ph);
+		}
 	}
 	return (0);
 }
