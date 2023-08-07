@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/04 02:20:09 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/07 11:43:42 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_data {
 	int				num_philo_must_eat;
 	int				did_someone_die;
 	long			life_start_time;
-	pthread_mutex_t	pancil;
+	pthread_mutex_t	*pancil;
 }	t_data;
 
 typedef struct s_philo {
@@ -48,6 +48,8 @@ typedef struct s_philo {
 	pthread_mutex_t	*right_fork;
 
 }	t_philo;
+
+int		philosopher(t_data	*data);
 
 void	*life(void *philo);
 
