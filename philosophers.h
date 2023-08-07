@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/07 11:43:42 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/07 11:49:10 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int		philo_is_alive(t_philo *philo);
 
 void	write_philo_action(t_philo *philo, int action);
 
-void	check_args(int argv, char *argc[]);
-
 void	exit_error(int exit_code, char *message_error);
+
+int		ft_isalldigit(char *str);
 
 void	*ft_calloc(size_t num, size_t size);
 

@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:54:12 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/03 15:53:28 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/07 11:48:04 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,4 @@ int	ft_atoi(const char *str)
 		s++;
 	}
 	return (number * signal);
-}
-
-void	check_args(int argv, char *argc[])
-{
-	if (argv < 5)
-		exit_error(1, "argument is missing");
-	if (argv > 6)
-		exit_error(1, "Too many arguments");
-	if (ft_isalldigit(argc[1]) != 0)
-		exit_error(2, "Invalid number of philosophers argument");
-	if (ft_isalldigit(argc[2]) != 0)
-		exit_error(2, "Invalid time to die argument");
-	if (ft_isalldigit(argc[3]) != 0)
-		exit_error(2, "Invalid time to eat argument");
-	if (ft_isalldigit(argc[4]) != 0)
-		exit_error(2, "Invalid time to sleep argument");
-	if (argv == 6)
-		if (ft_isalldigit(argc[5]) != 0)
-			exit_error(2, "Invalid times each philosopher must eat argument");
 }
