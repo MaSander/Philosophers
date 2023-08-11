@@ -1,4 +1,4 @@
-NAME=philosophers
+NAME=philo
 
 SOURCES=main.c philosophers.c utils.c error.c life.c timer.c annotation.c monitoring.c
 
