@@ -6,11 +6,28 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/07 11:45:26 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:15:16 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	did_someone_die(t_data *data)
+{
+	int	someone_die;
+
+	pthread_mutex_lock(data->pancil);
+	someone_die = data->did_someone_die;
+	pthread_mutex_unlock(data->pancil);
+	return (someone_die);
+}
+
+void	register_death(t_data *data)
+{
+	pthread_mutex_lock(data->pancil);
+	data->did_someone_die = 1;
+	pthread_mutex_unlock(data->pancil);
+}
 
 void	init_philo(t_data *data, t_philo *philo)
 {
@@ -25,6 +42,8 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].last_food = 0;
 		philo[i].left_fork = malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(philo[i].left_fork, NULL);
+		philo[i].lock_data = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philo[i].lock_data, NULL);
 		i++;
 	}
 	i--;
@@ -63,6 +82,7 @@ int	philosopher(t_data	*data)
 	while (i < data->num_philo)
 	{
 		pthread_mutex_destroy(philos[i].left_fork);
+		pthread_mutex_destroy(philos[i].lock_data);
 		free(philos[i].left_fork);
 		i++;
 	}

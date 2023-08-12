@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:24:02 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/04 02:12:34 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:12:47 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	philo_is_alive(t_philo *philo)
 	long	last_food;
 
 	time_now = get_time_now();
-	last_food = philo->last_food;
+	last_food = get_last_food(philo);
 	if ((time_now - last_food) > philo->data->time_to_die)
 	{
 		write_philo_action(philo, DIED);
-		philo->data->did_someone_die = 1;
+		register_death(philo->data);
 		return (0);
 	}
 	return (1);
@@ -41,7 +41,7 @@ void	monitoring(t_data *data, t_philo *philos)
 		philos_satisfied = 0;
 		while (i < data->num_philo)
 		{
-			if (philos[i].satisfied != data->num_philo_must_eat)
+			if (get_satisfied(&philos[i]) != data->num_philo_must_eat)
 				if (!philo_is_alive(&philos[i]))
 					return ;
 			i++;
@@ -49,7 +49,7 @@ void	monitoring(t_data *data, t_philo *philos)
 		i = 0;
 		while (i < data->num_philo)
 		{
-			if (philos[i].satisfied == data->num_philo_must_eat)
+			if (get_satisfied(&philos[i]) == data->num_philo_must_eat)
 				philos_satisfied++;
 			i++;
 		}

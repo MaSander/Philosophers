@@ -1,6 +1,6 @@
 NAME=philo
 
-SOURCES=main.c philosophers.c utils.c error.c life.c timer.c annotation.c monitoring.c
+SOURCES=main.c philosophers.c utils.c error.c life.c timer.c annotation.c monitoring.c philo_data_handler.c
 
 OBJECTS_DIR=objects
 

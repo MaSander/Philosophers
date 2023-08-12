@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/07 11:49:10 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:14:05 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo {
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*lock_data;
 
 }	t_philo;
 
@@ -59,6 +60,14 @@ long	calculate_current_time(t_philo *philo);
 
 void	monitoring(t_data *data, t_philo *philos);
 int		philo_is_alive(t_philo *philo);
+
+void	update_last_food(t_philo *philo);
+long	get_last_food(t_philo *philo);
+void	increment_satisfied(t_philo *philo);
+int		get_satisfied(t_philo *philo);
+
+int		did_someone_die(t_data *data);
+void	register_death(t_data *data);
 
 void	write_philo_action(t_philo *philo, int action);
 
