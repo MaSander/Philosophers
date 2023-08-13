@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:24:02 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/12 17:12:47 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/13 02:41:53 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	philo_is_alive(t_philo *philo)
 
 	time_now = get_time_now();
 	last_food = get_last_food(philo);
-	if ((time_now - last_food) > philo->data->time_to_die)
-	{
-		write_philo_action(philo, DIED);
-		register_death(philo->data);
-		return (0);
-	}
+	if (last_food != 0)
+		if ((time_now - last_food) > philo->data->time_to_die)
+		{
+			write_philo_action(philo, DIED);
+			register_death(philo->data);
+			return (0);
+		}
 	return (1);
 }
 

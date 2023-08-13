@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/12 16:15:16 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/13 02:40:04 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].last_food = 0;
 		philo[i].left_fork = malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(philo[i].left_fork, NULL);
-		philo[i].lock_data = malloc(sizeof(pthread_mutex_t));
-		pthread_mutex_init(philo[i].lock_data, NULL);
+		philo[i].lock_data_philo = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philo[i].lock_data_philo, NULL);
 		i++;
 	}
 	i--;
@@ -64,9 +64,9 @@ int	give_life(t_data *data, t_philo *philos)
 	while (++i < data->num_philo)
 		pthread_create(&philos[i].thread, NULL, &life, &philos[i]);
 	i = -1;
-	monitoring(data, philos);
 	while (++i < data->num_philo)
 		pthread_join(philos[i].thread, NULL);
+	monitoring(data, philos);
 	return (0);
 }
 
@@ -82,7 +82,7 @@ int	philosopher(t_data	*data)
 	while (i < data->num_philo)
 	{
 		pthread_mutex_destroy(philos[i].left_fork);
-		pthread_mutex_destroy(philos[i].lock_data);
+		pthread_mutex_destroy(philos[i].lock_data_philo);
 		free(philos[i].left_fork);
 		i++;
 	}
