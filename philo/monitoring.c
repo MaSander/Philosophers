@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:24:02 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/15 21:43:46 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:41:25 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,41 @@ int	philo_is_alive(t_philo *philo)
 	return (1);
 }
 
-void	monitoring(t_data *data, t_philo *philos)
+int	philos_are_dissatisfied(t_philo *philos)
 {
 	int	i;
 	int	philos_satisfied;
 
-	ft_sleep(2);
+	i = 0;
 	philos_satisfied = 0;
-	while (philos_satisfied != data->num_philo)
+	while (i < philos->data->num_philo)
+	{
+		if (get_satisfied(&philos[i]) == philos->data->num_philo_must_eat)
+			philos_satisfied++;
+		i++;
+	}
+	return (philos->data->num_philo - philos_satisfied);
+}
+
+void	*monitoring(void *philo_array)
+{
+	int		i;
+	t_data	*data;
+	t_philo	*philos;
+
+	philos = (t_philo *)philo_array;
+	data = philos->data;
+	ft_sleep(data->time_to_die % 2);
+	while (philos_are_dissatisfied(philos))
 	{
 		i = 0;
-		philos_satisfied = 0;
 		while (i < data->num_philo)
 		{
 			if (get_satisfied(&philos[i]) != data->num_philo_must_eat)
 				if (!philo_is_alive(&philos[i]))
-					return ;
-			i++;
-		}
-		i = 0;
-		while (i < data->num_philo)
-		{
-			if (get_satisfied(&philos[i]) == data->num_philo_must_eat)
-				philos_satisfied++;
+					return (0);
 			i++;
 		}
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/13 02:38:46 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:23:32 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ long	get_time_now(void);
 void	ft_sleep(int miliseconds);
 long	calculate_current_time(t_philo *philo);
 
-void	monitoring(t_data *data, t_philo *philos);
+void	*monitoring(void *philo_array);
 int		philo_is_alive(t_philo *philo);
 
 void	update_last_food(t_philo *philo);
