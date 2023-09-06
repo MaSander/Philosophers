@@ -1,0 +1,5 @@
+Philosopher
+
+Esse projeto trata de abstrairmos um problema famoso chamado 'Dining philosophers problem' usando multi tread, process, mutex e tratando problemas como 'data race' e 'deadlock'.
+
+O 
