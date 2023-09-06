@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:24:02 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/17 13:41:25 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:39:24 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ int	philos_are_dissatisfied(t_philo *philos)
 	int	i;
 	int	philos_satisfied;
 
-	i = 0;
+	i = -1;
 	philos_satisfied = 0;
-	while (i < philos->data->num_philo)
+	while (++i < philos->data->num_philo)
 	{
 		if (get_satisfied(&philos[i]) == philos->data->num_philo_must_eat)
 			philos_satisfied++;
-		i++;
 	}
 	return (philos->data->num_philo - philos_satisfied);
 }
@@ -55,7 +54,6 @@ void	*monitoring(void *philo_array)
 
 	philos = (t_philo *)philo_array;
 	data = philos->data;
-	ft_sleep(data->time_to_die % 2);
 	while (philos_are_dissatisfied(philos))
 	{
 		i = 0;
@@ -66,6 +64,7 @@ void	*monitoring(void *philo_array)
 					return (0);
 			i++;
 		}
+		ft_sleep(1);
 	}
 	return (0);
 }

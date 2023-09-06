@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 22:46:41 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/07 11:45:51 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:23:27 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	write_philo_action(t_philo *philo, int action)
 		pthread_mutex_unlock(philo->data->pancil);
 		return ;
 	}
-	moment = calculate_current_time(philo);
+	moment = current_time(philo);
 	if (action == TAKE_A_FORK)
 		printf("%ld %d has take a fork\n", moment, philo->name);
 	else if (action == EATING)

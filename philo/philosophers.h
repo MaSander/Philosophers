@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:53 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/17 13:23:32 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:23:33 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef struct s_philo {
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*lock_data_philo;
+	pthread_mutex_t	*lock_food_data;
+	pthread_mutex_t	*lock_satisfy_data;
 
 }	t_philo;
 
@@ -56,7 +57,7 @@ void	*life(void *philo);
 
 long	get_time_now(void);
 void	ft_sleep(int miliseconds);
-long	calculate_current_time(t_philo *philo);
+long	current_time(t_philo *philo);
 
 void	*monitoring(void *philo_array);
 int		philo_is_alive(t_philo *philo);

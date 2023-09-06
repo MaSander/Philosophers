@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/17 13:41:55 by msander-         ###   ########.fr       */
+/*   Updated: 2023/08/21 21:03:45 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].data = data;
 		philo[i].last_food = 0;
 		philo[i].left_fork = malloc(sizeof(pthread_mutex_t));
+		philo[i].lock_food_data = malloc(sizeof(pthread_mutex_t));
+		philo[i].lock_satisfy_data = malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(philo[i].left_fork, NULL);
-		philo[i].lock_data_philo = malloc(sizeof(pthread_mutex_t));
-		pthread_mutex_init(philo[i].lock_data_philo, NULL);
+		pthread_mutex_init(philo[i].lock_food_data, NULL);
+		pthread_mutex_init(philo[i].lock_satisfy_data, NULL);
 		i++;
 	}
 	i--;
@@ -58,17 +60,17 @@ void	init_philo(t_data *data, t_philo *philo)
 int	give_life(t_data *data, t_philo *philos)
 {
 	int			i;
-	pthread_t	t_monotoring;
+	pthread_t	monotoring_th;
 
 	i = -1;
 	data->life_start_time = get_time_now();
 	while (++i < data->num_philo)
 		pthread_create(&philos[i].thread, NULL, &life, &philos[i]);
 	i = -1;
-	pthread_create(&t_monotoring, NULL, &monitoring, philos);
+	pthread_create(&monotoring_th, NULL, &monitoring, philos);
 	while (++i < data->num_philo)
 		pthread_join(philos[i].thread, NULL);
-	pthread_join(t_monotoring, NULL);
+	pthread_join(monotoring_th, NULL);
 	return (0);
 }
 
@@ -84,7 +86,8 @@ int	philosopher(t_data	*data)
 	while (i < data->num_philo)
 	{
 		pthread_mutex_destroy(philos[i].left_fork);
-		pthread_mutex_destroy(philos[i].lock_data_philo);
+		pthread_mutex_destroy(philos[i].lock_food_data);
+		pthread_mutex_destroy(philos[i].lock_satisfy_data);
 		free(philos[i].left_fork);
 		i++;
 	}
