@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 22:46:41 by msander-          #+#    #+#             */
-/*   Updated: 2023/09/06 23:51:10 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:30:22 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,20 @@ void	write_philo_action(t_philo *philo, int action)
 {
 	long	moment;
 
-	if (did_someone_die(philo->data) == 1)
+	if (!did_someone_die(philo->data))
+	{
+		pthread_mutex_lock(philo->data->pancil);
+		moment = current_time(philo);
+		if (action == TAKE_A_FORK)
+			printf("%ld %d has take a fork\n", moment, philo->name);
+		else if (action == EATING)
+			printf("%ld %d is eating\n", moment, philo->name);
+		else if (action == SLEEPING)
+			printf("%ld %d is sleeping\n", moment, philo->name);
+		else if (action == THINKING)
+			printf("%ld %d is thinking\n", moment, philo->name);
+		else
+			printf("%ld %d died\n", moment, philo->name);
 		pthread_mutex_unlock(philo->data->pancil);
-	pthread_mutex_lock(philo->data->pancil);
-	moment = current_time(philo);
-	if (action == TAKE_A_FORK)
-		printf("%ld %d has take a fork\n", moment, philo->name);
-	else if (action == EATING)
-		printf("%ld %d is eating\n", moment, philo->name);
-	else if (action == SLEEPING)
-		printf("%ld %d is sleeping\n", moment, philo->name);
-	else if (action == THINKING)
-		printf("%ld %d is thinking\n", moment, philo->name);
-	else
-		printf("%ld %d died\n", moment, philo->name);
-	pthread_mutex_unlock(philo->data->pancil);
+	}
 }
