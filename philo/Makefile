@@ -37,4 +37,4 @@ run: re
 	clear && ./philo 2 800 200 200 7
 
 val:
-	clear && valgrind -s --tool=helgrind --tool=drd ./philo 2 80 200 200 7
+	clear && valgrind -s --tool=helgrind --tool=drd ./philo 1 9000 200 200 1
