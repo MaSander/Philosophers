@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:24:02 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/21 20:39:24 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:39:34 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	*monitoring(void *philo_array)
 
 	philos = (t_philo *)philo_array;
 	data = philos->data;
+	ft_sleep(data->time_to_die - 1);
 	while (philos_are_dissatisfied(philos))
 	{
 		i = 0;

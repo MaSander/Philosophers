@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/09/06 23:33:10 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:43:42 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,10 @@ int	give_life(t_data *data, t_philo *philos)
 
 	i = -1;
 	data->life_start_time = get_time_now();
+	pthread_create(&monotoring_th, NULL, &monitoring, philos);
 	while (++i < data->num_philo)
 		pthread_create(&philos[i].thread, NULL, &life, &philos[i]);
 	i = -1;
-	ft_sleep(data->num_philo);
-	pthread_create(&monotoring_th, NULL, &monitoring, philos);
 	while (++i < data->num_philo)
 		pthread_join(philos[i].thread, NULL);
 	pthread_join(monotoring_th, NULL);
