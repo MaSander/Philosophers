@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:47:28 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/21 21:03:45 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:26:10 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].satisfied = 0;
 		philo[i].data = data;
 		philo[i].last_food = 0;
-		philo[i].left_fork = malloc(sizeof(pthread_mutex_t));
-		philo[i].lock_food_data = malloc(sizeof(pthread_mutex_t));
-		philo[i].lock_satisfy_data = malloc(sizeof(pthread_mutex_t));
+		philo[i].left_fork = ft_calloc(sizeof(pthread_mutex_t), 1);
+		philo[i].lock_food_data = ft_calloc(sizeof(pthread_mutex_t), 1);
+		philo[i].lock_satisfy_data = ft_calloc(sizeof(pthread_mutex_t), 1);
 		pthread_mutex_init(philo[i].left_fork, NULL);
 		pthread_mutex_init(philo[i].lock_food_data, NULL);
 		pthread_mutex_init(philo[i].lock_satisfy_data, NULL);
@@ -80,7 +80,9 @@ int	philosopher(t_data	*data)
 	int		i;
 
 	i = 0;
-	philos = malloc(sizeof(t_philo) * data->num_philo);
+	philos = ft_calloc(sizeof(t_philo), data->num_philo);
+	if (!philos)
+		return (-1);
 	init_philo(data, philos);
 	give_life(data, philos);
 	while (i < data->num_philo)

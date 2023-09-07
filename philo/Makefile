@@ -34,7 +34,7 @@ fclean:	clean
 re:	fclean all
 
 run: re
-	clear && ./philo 2 8000 200 200 7
+	clear && ./philo 2 800 200 200 7
 
 val:
-	clear && valgrind -s --tool=helgrind --tool=drd ./philo 2 8000 20 20 7
+	clear && valgrind -s --tool=helgrind --tool=drd ./philo 2 80 200 200 7

@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 00:52:11 by msander-          #+#    #+#             */
-/*   Updated: 2023/08/21 20:26:08 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:25:34 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ long	current_time(t_philo *philo)
 {
 	return (get_time_now() - philo->data->life_start_time);
 }
-
 
 void	ft_sleep(int miliseconds)
 {
