@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:18:01 by msander-          #+#    #+#             */
-/*   Updated: 2023/09/07 17:24:03 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:16:41 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*life(void *philo)
 	}
 	else
 	{
-		while (did_someone_die(ph->data) != 1)
+		while (!did_someone_die(ph->data))
 		{
 			if (ph->data->num_philo_must_eat == ph->satisfied)
 				return (0);
