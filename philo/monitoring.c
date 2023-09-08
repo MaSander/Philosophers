@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:24:02 by msander-          #+#    #+#             */
-/*   Updated: 2023/09/06 23:39:34 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:04:32 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	philo_is_alive(t_philo *philo)
 	{
 		if ((time_now - last_food) > philo->data->time_to_die)
 		{
-			write_philo_action(philo, DIED);
 			register_death(philo->data);
+			printf("%ld %d died\n", current_time(philo), philo->name);
 			return (0);
 		}
 	}

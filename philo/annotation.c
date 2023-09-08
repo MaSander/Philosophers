@@ -6,7 +6,7 @@
 /*   By: msander- <msander-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 22:46:41 by msander-          #+#    #+#             */
-/*   Updated: 2023/09/07 17:41:41 by msander-         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:01:36 by msander-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	write_philo_action(t_philo *philo, int action)
 			printf("%ld %d is sleeping\n", moment, philo->name);
 		else if (action == THINKING)
 			printf("%ld %d is thinking\n", moment, philo->name);
-		else
-			printf("%ld %d died\n", moment, philo->name);
 	}
 	pthread_mutex_unlock(philo->data->pancil);
 }
